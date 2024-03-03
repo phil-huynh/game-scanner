@@ -1,4 +1,3 @@
-const schedule = require('node-schedule')
 const request = require('request')
 const fs = require('fs')
 const {parse} = require('csv-parse')
@@ -6,15 +5,10 @@ const Item = require(('./models/Item.js'))
 const { createItemObject } = require('./utils/itemObject.js')
 const { updateOrAddItem } = require('./controllers/itemController.js')
 
-const url = `https://www.pricecharting.com/price-guide/download-custom?t=${process.env.PRICE_CHARTING_KEY}`
 
+module.exports.updateDatabase = () => {
+  const url = `https://www.pricecharting.com/price-guide/download-custom?t=${process.env.PRICE_CHARTING_KEY}`
 
-const rule = new schedule.RecurrenceRule();
-rule.hour = 5
-rule.minute = 10
-rule.tz = 'EST'
-
-const job = schedule.scheduleJob(rule, () => {
   console.log("Making request")
   request(url)
     .pipe(fs.createWriteStream('gamePrices.csv'))
@@ -38,6 +32,7 @@ const job = schedule.scheduleJob(rule, () => {
     .on('error', (err) => {
       console.error(err)
     })
-})
+}
+
 
 

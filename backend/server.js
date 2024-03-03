@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express()
-const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
-const csvJob = require('./priceChartingData.js')
 const mongoose = require('mongoose')
+const schedule = require('node-schedule')
+const { updateDatabase } = require('./updateDatabase.js')
+const cors = require('cors');
+
 
 app.use(cors());
 app.use(express.json());
@@ -16,21 +18,14 @@ mongoose.connect(db).then(() => {
   console.log('Database Connnected')
 })
 
+const rule = new schedule.RecurrenceRule();
+rule.hour = 5
+rule.minute = 52
+rule.tz = 'EST'
 
-// const getPriceChartingData = require('./getPriceCharting.js')
-
-// const schedule = require('node-schedule')
-
-// const rule = new schedule.RecurrenceRule();
-// rule.hour = 4;
-// rule.tz = 'EST'
-
-// const job = schedule.scheduleJob(rule, () => {
-//   console.log("job is running")
-//   getPriceChartingData.getData()
-//   console.log("after fetch") tn
-// })
-
+const job = schedule.scheduleJob(rule, () => {
+  updateDatabase()
+})
 
 const port = process.env.PORT || 8000;
 
