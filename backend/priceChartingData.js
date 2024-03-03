@@ -10,8 +10,8 @@ const url = `https://www.pricecharting.com/price-guide/download-custom?t=${proce
 
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 3
-rule.minute = 16
+rule.hour = 5
+rule.minute = 10
 rule.tz = 'EST'
 
 const job = schedule.scheduleJob(rule, () => {
@@ -20,19 +20,16 @@ const job = schedule.scheduleJob(rule, () => {
     .pipe(fs.createWriteStream('gamePrices.csv'))
     .on('finish', () => {
       console.log("CSV Downloaded Successfully")
-      fs.createReadStream('./gamePrices.csv', {start: 2})
+      fs.createReadStream('./gamePrices.csv')
         .pipe( parse({delimiter: ','}) )
-        .on('data', async (row) => {
+        .on('data', (row) => {
           let dataObject = createItemObject(row)
-          await updateOrAddItem(dataObject)
+          updateOrAddItem(dataObject)
         })
-        .on('finish', () => {
-          try {
-            fs.unlink('./gamePrices.csv')
+        .on('end', () => {
+          fs.unlink('./gamePrices.csv', () => {
             console.log('CSV has been deleted')
-          } catch(err) {
-            console.error(err)
-          }
+          })
         })
         .on('error', (err) => {
           console.error(err)
