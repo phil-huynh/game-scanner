@@ -19,13 +19,18 @@ mongoose.connect(db).then(() => {
 })
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 5
-rule.minute = 52
+rule.hour = 6
+rule.minute = 0
 rule.tz = 'EST'
 
-const job = schedule.scheduleJob(rule, () => {
+schedule.scheduleJob(rule, () => {
+  console.log('Requesting Data')
   updateDatabase()
 })
+
+const itemRouter = require('./routes/itemRoutes.js')
+
+app.use('/', itemRouter)
 
 const port = process.env.PORT || 8000;
 

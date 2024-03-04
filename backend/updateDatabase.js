@@ -9,7 +9,6 @@ const { updateOrAddItem } = require('./controllers/itemController.js')
 module.exports.updateDatabase = () => {
   const url = `https://www.pricecharting.com/price-guide/download-custom?t=${process.env.PRICE_CHARTING_KEY}`
 
-  console.log("Making request")
   request(url)
     .pipe(fs.createWriteStream('gamePrices.csv'))
     .on('finish', () => {
@@ -17,8 +16,7 @@ module.exports.updateDatabase = () => {
       fs.createReadStream('./gamePrices.csv')
         .pipe( parse({delimiter: ','}) )
         .on('data', (row) => {
-          let dataObject = createItemObject(row)
-          updateOrAddItem(dataObject)
+          updateOrAddItem(createItemObject(row))
         })
         .on('end', () => {
           fs.unlink('./gamePrices.csv', () => {
