@@ -4,17 +4,9 @@ import { useStore } from "./ContextStore";
 
 export default function BarCodeScanner () {
 
-  const { scanResult, setScanResult, currentGame, setCurrentGame } = useStore()
+  const { scanResult, setScanResult, currentGame, setCurrentGame, getGameByUPC } = useStore()
 
-  const getGame = async (upc) => {
-    console.log(upc)
-    const response = await fetch(`http://localhost:8000/game?upc=${upc}`)
-    if (response.ok) {
-      const data = await response.json()
-      console.log(data.doc)
-      setCurrentGame(data.doc)
-    } else console.log("it didn't work")
-  }
+
 
   useEffect(() => {
     if (!scanResult) {
@@ -33,7 +25,7 @@ export default function BarCodeScanner () {
         scanner.clear()
         result = result.length === 13 && result[0] === '0' ? result.slice(1) : result
         setScanResult(result)
-        getGame(result)
+        getGameByUPC(result)
       }
 
       const error = (err) => {
