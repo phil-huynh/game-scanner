@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const schedule = require('node-schedule')
 const { updateDatabase } = require('./updateDatabase.js')
 const cors = require('cors');
+const { checkForData } = require('./controllers/itemController.js')
+const Item = require(('./models/Item.js'))
 
 
 app.use(cors());
@@ -18,9 +20,17 @@ mongoose.connect(db).then(() => {
   console.log('Database Connnected')
 })
 
+const thereIsData = (async () => {
+  const dataPresent = await Item.findOne({pcID: '3269138'})
+  if(!dataPresent) {
+    updateDatabase()
+  }
+})()
+
+
 const rule = new schedule.RecurrenceRule();
-rule.hour = 6
-rule.minute = 0
+rule.hour = 3
+rule.minute = 30
 rule.tz = 'EST'
 
 schedule.scheduleJob(rule, () => {
