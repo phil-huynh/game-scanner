@@ -28,9 +28,9 @@ module.exports.createItemObject = (row) => {
 
   columns.forEach((column, i) => {
     if (row[i]) {
-      dataObject[column] = row[i]
+      dataObject[column] = row[i];
     }
-  })
+  });
 
-  return dataObject
+  return dataObject;
 }

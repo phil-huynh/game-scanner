@@ -1,13 +1,13 @@
-const Item = require(('../models/Item.js'))
-const catchAsync =  require('../utils/catchAsync.js')
+const Item = require(('../models/Item.js'));
+const catchAsync =  require('../utils/catchAsync.js');
 
 
 module.exports.updateOrAddItem = async (data) => {
   const doc = await Item.findOneAndUpdate({ pcID: data.pcID }, data, {
     new: true,
     upsert: true
-  })
-}
+  });
+};
 
 module.exports.getGame = catchAsync(async (req, res, next) => {
   const doc = req.query.upc ?
