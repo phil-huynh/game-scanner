@@ -33,7 +33,6 @@ module.exports.getGamesForSystem = catchAsync(async (req, res, next) => {
   const gameList = games.sort(
     (a,b) => a.productName.toLowerCase().localeCompare(b.productName.toLowerCase())
   )
-  console.log(gameList)
   if (!gameList) {
     return res.status(404).send({
       status: "fail",
