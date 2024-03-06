@@ -24,7 +24,7 @@ export default function ContextProvider ({ children }) {
     const response = await fetch(`http://localhost:8000/game?upc=${upc}`)
     if (response.ok) {
       const data = await response.json()
-      setCurrentGame(data.doc)
+      setCurrentGame(data.game)
     } else {
       console.log("it didn't work")
     }
@@ -34,7 +34,7 @@ export default function ContextProvider ({ children }) {
     const response = await fetch(`http://localhost:8000/game?pcID=${id}`)
     if (response.ok) {
       const data = await response.json()
-      setCurrentGame(data.doc)
+      setCurrentGame(data.game)
     } else {
       console.log("it didn't work")
     }

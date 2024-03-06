@@ -1,9 +1,9 @@
 const request = require('request');
 const fs = require('fs');
 const {parse} = require('csv-parse');
-const Item = require(('./models/Item.js'));
-const { createItemObject } = require('./utils/itemObject.js');
-const { updateOrAddItem } = require('./controllers/itemController.js');
+const Item = require(('../models/Item.js'));
+const { createItemObject } = require('./itemObject.js');
+const { updateOrAddItem } = require('../controllers/itemController.js');
 
 
 module.exports.updateDatabase = () => {

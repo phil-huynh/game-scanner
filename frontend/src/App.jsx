@@ -2,33 +2,22 @@ import './App.css'
 import BarCodeScanner from './Scanner'
 import GameDataDisplay from './GameDataDisplay'
 import Menu from './Menu'
-import { useStore } from './ContextStore'
 import Search from './Search'
+import { useStore } from './ContextStore'
 
 function App() {
 
-  const {currentGame, page, setPage} = useStore()
+  const { currentGame, page } = useStore()
 
   if (page==='menu') {
     return <Menu/>
   }
-
   if (page==='scanner') {
-    return (
-      <>
-        {currentGame ? <GameDataDisplay/> : <BarCodeScanner/>}
-      </>
-    )
+    return <>{currentGame ? <GameDataDisplay/> : <BarCodeScanner/>}</>
   }
-
   if (page==='search') {
-    return (
-      <>
-        {currentGame ? <GameDataDisplay/> : <Search/>}
-      </>
-    )
+    return <>{currentGame ? <GameDataDisplay/> : <Search/>}</>
   }
-
 }
 
 export default App

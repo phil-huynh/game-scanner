@@ -10,21 +10,20 @@ module.exports.updateOrAddItem = async (data) => {
 };
 
 module.exports.getGame = catchAsync(async (req, res, next) => {
-  const doc = req.query.upc ?
+  const game = req.query.upc ?
    await Item.findOne({upc: req.query.upc})
    :
    await Item.findOne({pcID: req.query.pcID,})
 
-  if (!doc) {
+  if (!game) {
     return res.status(404).send({
       status: "fail",
       message: `No documents found at route: ${req.route}`,
     });
   }
-  console.log(doc)
   res.status(200).send({
     status: "success",
-    doc,
+    game,
   });
 })
 
