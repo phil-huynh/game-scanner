@@ -52,7 +52,7 @@ export default function Search() {
         </div>
         :null
       }
-      <button onClick={()=>getGameByPCID(selectedGame)}>Get Game Data</button>
+      <button onClick={()=>selectedGame ? getGameByPCID(selectedGame) : null}>Get Game Data</button>
     </>
   )
 }
