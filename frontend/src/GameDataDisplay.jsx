@@ -1,20 +1,14 @@
 import { useStore } from "./ContextStore"
+import Menu from "./Menu"
 
 export default function GameDataDisplay() {
 
-  const {currentGame, clear, setPage, setCurrentGame} = useStore()
-
-  const switchPage = (pageSelection) => {
-    clear()
-    setPage(pageSelection)
-  }
+  const { currentGame } = useStore()
 
   return (
     <>
       <div>
-        <button onClick={()=>switchPage('menu')}>Back to Menu</button>
-        <button onClick={()=>switchPage('scanner')}>Scan a Game</button>
-        <button onClick={()=>switchPage('search')}>Search by Name</button>
+        <Menu/>
       </div>
       <h1>{`${currentGame.productName ? currentGame.productName : "DATA UNAVAILABLE"}`}</h1>
       <h3>{`${currentGame.genre ? currentGame.genre : "DATA UNAVAILABLE"}`}</h3>

@@ -6,10 +6,10 @@ export default function ContextProvider ({ children }) {
 
   const [scanResult, setScanResult] = useState(null)
   const [currentGame, setCurrentGame] = useState(null)
-  const [page, setPage] = useState('menu')
   const [selectedConsole, setSelectedConsole] = useState(null)
   const [gameList, setGameList] = useState(null)
   const [selectedGame, setSelectedGame] = useState(null)
+  const [page, setPage] = useState('menu')
 
   const clear = () => {
     setScanResult(null)
@@ -19,6 +19,10 @@ export default function ContextProvider ({ children }) {
     setSelectedGame(null)
   }
 
+  const switchPage = (pageSelection) => {
+    clear()
+    setPage(pageSelection)
+  }
 
   const getGameByUPC = async (upc) => {
     const response = await fetch(`http://localhost:8000/game?upc=${upc}`)
@@ -35,6 +39,7 @@ export default function ContextProvider ({ children }) {
     if (response.ok) {
       const data = await response.json()
       setCurrentGame(data.game)
+      setPage('display')
     } else {
       console.log("it didn't work")
     }
@@ -49,7 +54,6 @@ export default function ContextProvider ({ children }) {
       console.log("it didn't work")
     }
   }
-
 
   const store = {
     scanResult: scanResult,
@@ -67,6 +71,7 @@ export default function ContextProvider ({ children }) {
     setSelectedGame: setSelectedGame,
     setPage: setPage,
     setSelectedConsole: setSelectedConsole,
+    switchPage: switchPage,
     clear: clear
   }
 

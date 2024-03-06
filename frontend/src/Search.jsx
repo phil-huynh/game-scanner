@@ -1,9 +1,18 @@
 import gameConsoles from "./gameConsoles.js"
+import Menu from "./Menu.jsx"
 import { useStore } from "./ContextStore.jsx"
 
 export default function Search() {
 
-  const { setPage, selectedConsole, setSelectedConsole, gameList, getGamesForSystem, setGameList, selectedGame, setSelectedGame, getGameByPCID } = useStore()
+  const {
+    setSelectedConsole,
+    gameList,
+    getGamesForSystem,
+    setGameList,
+    selectedGame,
+    setSelectedGame,
+    getGameByPCID,
+  } = useStore()
 
   const chooseConsole = (e) => {
     if (e.target.value === "none") {
@@ -18,18 +27,14 @@ export default function Search() {
     setSelectedGame(e.target.value)
   }
 
-
-
-
   return (
     <>
       <div>
-        <button onClick={()=>setPage('menu')}>Back to Menu</button>
-        <button onClick={()=>setPage('scanner')}>Scan a Game</button>
+        <Menu/>
       </div>
       <div>
         <select name="consoles" id="consoles" onChange={chooseConsole}>
-            <option key="noSystem" value="none">Choose a Game Console</option>
+          <option key="noSystem" value="none">Choose a Game Console</option>
           {gameConsoles.map((system) =>
             <option key={system} value={system}>{system}</option>
           )}

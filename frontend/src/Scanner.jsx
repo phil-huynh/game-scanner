@@ -1,19 +1,24 @@
-import { useEffect } from "react";
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { useStore } from "./ContextStore";
+import { useEffect } from "react";
+import Menu from './Menu'
 
 export default function BarCodeScanner () {
 
-  const { scanResult, setScanResult, currentGame, setCurrentGame, getGameByUPC, setPage } = useStore()
+  const {
+    currentGame,
+    getGameByUPC,
+    setPage
+  } = useStore()
 
   useEffect(() => {
-    if (!scanResult) {
+    if (!currentGame) {
       const scanner = new Html5QrcodeScanner(
-        'reader',
+        'scanner',
         {
           qrbox: {
-            width: 260,
-            height: 210
+            width: 350,
+            height: 260
           },
           fps: 15,
         }
@@ -23,23 +28,20 @@ export default function BarCodeScanner () {
           result = result.slice(1)
         }
         scanner.clear()
-        setScanResult(result)
         getGameByUPC(result)
-
+        setPage('display')
       }
       const error = (err) => {
         console.warn(err)
       }
       scanner.render(success, error);
     }
-  }, [scanResult])
+  })
 
   return (
     <>
-      <button onClick={()=>setPage('menu')}>Back to Menu</button>
-      <button onClick={()=>setPage('search')}>Search by Name</button>
-      <div id="reader" style={{width: '350px', height: '350px'}}/>
+      <Menu/>
+      <div id="scanner"/>
     </>
   )
-
 }

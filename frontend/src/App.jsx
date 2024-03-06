@@ -13,10 +13,13 @@ function App() {
     return <Menu/>
   }
   if (page==='scanner') {
-    return <>{currentGame ? <GameDataDisplay/> : <BarCodeScanner/>}</>
+    return <>{!currentGame && <BarCodeScanner/>}</>
   }
   if (page==='search') {
-    return <>{currentGame ? <GameDataDisplay/> : <Search/>}</>
+    return <>{!currentGame && <Search/>}</>
+  }
+  if (page==='display') {
+    return <>{currentGame && <GameDataDisplay/>}</>
   }
 }
 
