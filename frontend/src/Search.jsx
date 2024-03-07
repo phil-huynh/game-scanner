@@ -15,16 +15,18 @@ export default function Search() {
   } = useStore()
 
   const chooseConsole = (e) => {
-    if (e.target.value === "none") {
-      setGameList(null)
+    const gameConsole = gameConsoles.filter(system => e.target.value === system)[0]
+    if (gameConsole) {
+      setSelectedConsole(gameConsole)
+      getGamesForSystem(gameConsole)
     } else {
-      setSelectedConsole(e.target.value)
-      getGamesForSystem(e.target.value)
+      setGameList(null)
     }
   }
 
   const chooseGame = (e) => {
-    setSelectedGame(e.target.value)
+    const game = gameList.filter(game => game.productName === e.target.value)[0]
+    setSelectedGame(game.pcID)
   }
 
   return (
@@ -32,24 +34,39 @@ export default function Search() {
       <div>
         <Menu/>
       </div>
-      <div>
-        <select name="consoles" id="consoles" onChange={chooseConsole}>
-          <option key="noSystem" value="none">Choose a Game Console</option>
+      <fieldset>
+        <legend>Game Consoles</legend>
+        <input
+          list="consoles"
+          name="console"
+          id="console"
+          placeholder="Select a Console"
+          onChange={chooseConsole}
+        />
+        <datalist name="consoles" id="consoles" >
+          <option key="noSystem" value=""/>
           {gameConsoles.map((system) =>
-            <option key={system} value={system}>{system}</option>
+            <option key={system} value={system}/>
           )}
-        </select>
-
-      </div>
+        </datalist>
+      </fieldset>
       {gameList ?
-        <div>
-          <select name="games" id="games" onChange={chooseGame}>
-            <option key="noGame" value="">Choose a Game</option>
+        <fieldset>
+          <legend>Games</legend>
+          <input
+            list="games"
+            name="game"
+            id="game"
+            placeholder="Select a Game"
+            onChange={chooseGame}
+          />
+          <datalist name="games" id="games">
+            <option key="noGame" value=""/>
             {gameList?.map((game) =>
-              <option key={game.pcID} value={game.pcID}>{game.productName}</option>
+              <option key={game.pcID} value={game.productName}/>
             )}
-          </select>
-        </div>
+          </datalist>
+        </fieldset>
         :null
       }
       <button onClick={()=>selectedGame ? getGameByPCID(selectedGame) : null}>Get Game Data</button>
