@@ -15,7 +15,7 @@ export default function GameDataDisplay() {
         <div className="tableContainer">
           <table>
             <tr>
-              <td title="	The name of the console on which the item was released">Console</td>
+              <td title="Console on which the item was released">Console</td>
               <td>{`${currentGame.consoleName ? currentGame.consoleName : "DATA UNAVAILABLE"}`}</td>
             </tr>
             <tr>
@@ -73,11 +73,11 @@ export default function GameDataDisplay() {
               <td className="tableHeader">Price</td>
             </tr>
             <tr>
-              <td title="The price that GameStop charges for this game in Pre-Owned condition.">Sell</td>
+              <td title="Price that GameStop charges for this game in Pre-Owned condition.">Sell</td>
               <td>{currentGame.gamestopPrice ? currentGame.gamestopPrice : "DATA UNAVAILABLE"}</td>
             </tr>
             <tr>
-              <td title="The Trade price is what GameStop pays in cash for trade-in">Trade Price</td>
+              <td title="Trade price is what GameStop pays in cash for trade-in">Trade Price</td>
               <td>{currentGame.gamestopTradePrice ? currentGame.gamestopTradePrice : "DATA UNAVAILABLE"}</td>
             </tr>
           </table>
@@ -93,17 +93,17 @@ export default function GameDataDisplay() {
               <td className="tableHeader">Sell Price</td>
             </tr>
             <tr>
-              <td title="The recommended price for retailers buying/selling in brand new condition">New</td>
+              <td title="Recommended price for retailers buying/selling in brand new condition">New</td>
               <td>{currentGame.retailNewBuy ? currentGame.retailNewBuy : "DATA UNAVAILABLE"}</td>
               <td>{currentGame.retailNewSell ? currentGame.retailNewSell : "DATA UNAVAILABLE"}</td>
             </tr>
             <tr>
-              <td title="The recommended price for retailers buying/selling in complete in box condition">Complete in Box</td>
+              <td title="Recommended price for retailers buying/selling in complete in box condition">Complete in Box</td>
               <td>{currentGame.retailCibBuy ? currentGame.retailCibBuy : "DATA UNAVAILABLE"}</td>
               <td>{currentGame.retailCibSell ? currentGame.retailCibSell : "DATA UNAVAILABLE"}</td>
             </tr>
             <tr>
-              <td title="The recommended price for retailers buying/selling in loose condition">Loose</td>
+              <td title="Recommended price for retailers buying/selling in loose condition">Loose</td>
               <td>{currentGame.retailLooseBuy ? currentGame.retailLooseBuy : "DATA UNAVAILABLE"}</td>
               <td>{currentGame.retailLooseSell ? currentGame.retailLooseSell : "DATA UNAVAILABLE"}</td>
             </tr>
